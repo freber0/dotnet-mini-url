@@ -10,6 +10,8 @@ namespace MiniUrl.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private ServiceLocator serviceLocator = new ServiceLocator();
+
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
@@ -18,9 +20,11 @@ namespace MiniUrl.Controllers
         }
        
         [HttpPost]
-        public JsonResult UrlPostMethod([FromBody] PostUrlMethod value)
+        public string UrlPostMethod([FromBody] PostUrlMethod value)
         {
-            return new JsonResult(value);
+            MiniUrlService service = serviceLocator.GetInstance();
+            string shortGuid = service.ShrinkUrl(value.url);
+            return shortGuid;
         }
     }
 }
