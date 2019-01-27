@@ -14,9 +14,11 @@ namespace MiniUrl.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<string> Get(string id)
         {
-            return "value";
+            MiniUrlService service = serviceLocator.GetInstance();
+            string url = service.GetUrlFromGuid(id);
+            return url;
         }
        
         [HttpPost]

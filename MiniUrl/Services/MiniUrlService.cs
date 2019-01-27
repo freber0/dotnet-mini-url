@@ -18,6 +18,16 @@ namespace MiniUrl.Controllers
             return shortGuid;
         }
 
+        public string GetUrlFromGuid(string guid)
+        {
+            string url;
+            if(!_shortGuidUrlMapper.TryGetValue(guid, out url))
+            {
+                return "error";
+            }
+            return url;
+        }
+
         private string GenerateShortGuid()
         {
             Guid guid = Guid.NewGuid();
